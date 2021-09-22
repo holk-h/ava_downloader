@@ -44,30 +44,32 @@ def schedule(a, b, c):
 
 # 正则匹配图片并用URLRetrieve下载
 def getImg(html, imageID, imageIndex):
-    reg = r'http.*?' + imageID + r'\.jpg'
+    reg = r'//images.*?' + imageID + r'.jpg'
     # print reg
     imgre = re.compile(reg)  # 编译成正则表达式变量
     imglist = re.findall(imgre, html)
+    # print imglist
+    # print html
     for imgurl in imglist:
-        print(imgurl)
-        urllib.urlretrieve(imgurl, os.path.join(savePath, imageIndex + '.jpg'), schedule)
+        print("https:"+imgurl)
+        urllib.urlretrieve("https:"+imgurl, os.path.join(savePath, imageIndex + '.jpg'), schedule)
 
 
 URLprefix = r'http://www.dpchallenge.com/image.php?IMAGE_ID='
-AVAtxt = r'AVA.txt'
+AVAtxt = r'AVA_dataset/AVA.txt'
 savePath = r'image'
 
 
 # 检查参数个数
-if len(sys.argv) < 3:
-    print 'arg error # python xxx.py beginIndex endIndex'
-    exit()
+# if len(sys.argv) < 3:
+#     print 'arg error # python xxx.py beginIndex endIndex'
+#     exit()
 
 
 # 必须>=1
-beginIndex = int(sys.argv[1])
+beginIndex = int(1)
 # 必须<= 255530
-endIndex = int(sys.argv[2])
+endIndex = int(200000)
 
 
 # 打开AVA.txt 获取图片路径
